@@ -13,7 +13,10 @@ import jakarta.persistence.*
  * 2025-03-06        Yeong-Huns       최초 생성
  */
 @Entity
-class Link: BaseEntity() {
+class Link(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "link_id")
-    var id: Long? = null
-}
+    val id: Long? = null,
+    var name: String,
+    var content: String? = null,
+    var isActive: Boolean,
+): BaseEntity()

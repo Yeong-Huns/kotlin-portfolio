@@ -1,6 +1,7 @@
 package com.yeonghun.portfolio.domain.entity
 
 import jakarta.persistence.*
+import jakarta.servlet.http.HttpServletRequest
 
 /**
  *packageName    : com.yeonghun.portfolio.domain.entity
@@ -13,7 +14,25 @@ import jakarta.persistence.*
  * 2025-03-06        Yeong-Huns       최초 생성
  */
 @Entity
-class HttpInterface: BaseEntity() {
+class HttpInterface(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "http_interface_id")
-    var id: Long? = null
+    val id: Long? = null,
+    var cookies: String? = null,
+    var referer: String? = null,
+    var localAddr: String? = null,
+    var remoteAddr: String? = null,
+    var requestUri: String? = null,
+    var userAgent: String? = null,
+    httpServletRequest: HttpServletRequest,
+): BaseEntity(){
+    init {
+        this.cookies = httpServletRequest.cookies
+            ?.map { "${it.name}:${it.value}" }
+            ?.toString()
+        this.referer = httpServletRequest.getHeader("referer")
+        this.localAddr = httpServletRequest.localAddr
+        this.remoteAddr = httpServletRequest.remoteAddr
+        this.requestUri = httpServletRequest.requestURI
+        this.userAgent = httpServletRequest.getHeader("user-agent")
+    }
 }

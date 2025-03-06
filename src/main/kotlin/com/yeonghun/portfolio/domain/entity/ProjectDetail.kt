@@ -13,7 +13,16 @@ import jakarta.persistence.*
  * 2025-03-06        Yeong-Huns       최초 생성
  */
 @Entity
-class ProjectDetail: BaseEntity() {
+class ProjectDetail(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "project_detail_id")
-    var id: Long? = null
+    val id: Long? = null,
+    var content: String,
+    var isActive: Boolean,
+    var url: String? = null,
+): BaseEntity() {
+    fun update(content: String, isActive: Boolean, url: String?) {
+        this.content = content
+        this.isActive = isActive
+        this.url = url
+    }
 }

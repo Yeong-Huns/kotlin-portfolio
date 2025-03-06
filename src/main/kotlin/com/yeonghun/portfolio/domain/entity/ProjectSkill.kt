@@ -13,7 +13,13 @@ import jakarta.persistence.*
  * 2025-03-06        Yeong-Huns       최초 생성
  */
 @Entity
-class ProjectSkill: BaseEntity() {
+class ProjectSkill(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "project_skill_id")
-    var id: Long? = null
-}
+    val id: Long? = null,
+    @ManyToOne(targetEntity = Project::class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", nullable = false)
+    val project: Project,
+    @ManyToOne(targetEntity = Skill::class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "skill_id", nullable = false)
+    val skill: Skill,
+): BaseEntity()

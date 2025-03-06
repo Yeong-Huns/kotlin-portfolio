@@ -13,7 +13,9 @@ import jakarta.persistence.*
  * 2025-03-06        Yeong-Huns       최초 생성
  */
 @Entity
-class ExperienceDetail: BaseEntity() {
+class ExperienceDetail(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "experience_detail_id")
-    var id: Long? = null
-}
+    val id: Long? = null,
+    var content: String,
+    var isActive: Boolean,
+): BaseEntity()

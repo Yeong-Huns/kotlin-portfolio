@@ -3,6 +3,7 @@ package com.yeonghun.portfolio.domain.repository
 import com.yeonghun.portfolio.domain.entity.HttpInterface
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
+import java.time.LocalDateTime
 
 /**
  *packageName    : com.yeonghun.portfolio.domain.repository
@@ -16,4 +17,5 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface HttpInterfaceRepository: JpaRepository<HttpInterface, Long> {
+    fun countAllByCreatedDateTimeBetween(start: LocalDateTime, end: LocalDateTime): Long
 }

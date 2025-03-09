@@ -16,4 +16,5 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface ExperienceRepository: JpaRepository<Experience, Long> {
+    fun findAllByActive(isActive: Boolean): List<Experience>
 }

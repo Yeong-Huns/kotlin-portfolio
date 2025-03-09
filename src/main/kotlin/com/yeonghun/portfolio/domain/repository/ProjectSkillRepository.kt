@@ -16,4 +16,5 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface ProjectSkillRepository: JpaRepository<ProjectSkill, Long> {
+    fun findByProjectIdAndSkillId(projectId: Long, skillId: Long): ProjectSkill?
 }

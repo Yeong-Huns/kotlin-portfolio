@@ -16,4 +16,5 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface AchievementRepository: JpaRepository<Achievement, Long> {
+    fun findAllByIsActive(isActive: Boolean): List<Achievement>
 }

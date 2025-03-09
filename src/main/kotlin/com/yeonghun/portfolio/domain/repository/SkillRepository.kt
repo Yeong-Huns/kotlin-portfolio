@@ -1,5 +1,6 @@
 package com.yeonghun.portfolio.domain.repository
 
+import com.yeonghun.portfolio.domain.constant.SkillType
 import com.yeonghun.portfolio.domain.entity.Skill
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
@@ -16,4 +17,6 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface SkillRepository: JpaRepository<Skill, Long> {
+    fun findAllByIsActive(isActive: Boolean): List<Skill>
+    fun findByNameIgnoreCaseAndType(name: String, type: SkillType): Skill?
 }

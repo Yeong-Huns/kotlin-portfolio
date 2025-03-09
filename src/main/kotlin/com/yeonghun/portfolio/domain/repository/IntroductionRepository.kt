@@ -16,4 +16,5 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface IntroductionRepository: JpaRepository<Introduction, Long> {
+    fun findAllByIsActive(isActive: Boolean): List<Introduction>
 }

@@ -16,5 +16,5 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface ProjectRepository: JpaRepository<Project, Long> {
-    fun findAllByisActive(isActive: Boolean): List<Project>
+    fun findAllByIsActive(isActive: Boolean): List<Project>
 }

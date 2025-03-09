@@ -27,7 +27,7 @@ class Project(
     @JoinColumn(name = "project_id")
     val details: MutableList<ProjectDetail> = mutableListOf(),
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val skills: MutableList<Skill> = mutableListOf(),
+    val skills: MutableList<ProjectSkill> = mutableListOf(),
 ): BaseEntity() {
     fun getEndYearMonth(): String {
         if (endYear == null || endMonth == null) {

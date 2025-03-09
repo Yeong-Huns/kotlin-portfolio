@@ -1,5 +1,6 @@
 package com.yeonghun.portfolio.domain.repository
 
+import com.yeonghun.portfolio.config.QueryDslConfig
 import com.yeonghun.portfolio.domain.constant.SkillType
 import com.yeonghun.portfolio.domain.entity.Project
 import com.yeonghun.portfolio.domain.entity.ProjectDetail
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.Import
 
 /**
  *packageName    : com.yeonghun.portfolio.domain.repository
@@ -25,11 +27,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
  * 2025-03-10        Yeong-Huns       최초 생성
  */
 
+@Import(QueryDslConfig::class, ProjectQueryDslRepository::class)
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProjectRepositoryTest (
     @Autowired val projectRepository: ProjectRepository,
-    @Autowired val skillRepository: SkillRepository
+    @Autowired val skillRepository: SkillRepository,
+    @Autowired val projectQueryDslRepository: ProjectQueryDslRepository
 ){
     val DATA_SIZE = 10
     private fun createProject(n: Int): Project {
@@ -64,7 +68,6 @@ class ProjectRepositoryTest (
         val skills = mutableListOf<Skill>()
         (1..DATA_SIZE).forEach {
             val skillTypes = SkillType.entries.toTypedArray()
-            val test = skillTypes[0]
             val skill = Skill(name = "테스트 $it", type = skillTypes[it%skillTypes.count()], isActive = true)
             skills.add(skill)
         }
@@ -93,11 +96,12 @@ class ProjectRepositoryTest (
     @DisplayName("IsActive 가 true 인 데이터 조회에 성공한다.")
     @Test
     fun testFindAllByIsActive() {
-        val projects = projectRepository.findAllByIsActive(true)
+        val projects = projectQueryDslRepository.findAllByIsActive(true)
         assertThat(projects).hasSize(DATA_SIZE)
 
         projects.forEach {
             assertThat(it.details).hasSize(it.name.toInt())
+            logger.info{"details size : ${it.details.count()}"}
         }
     }
 

@@ -74,6 +74,7 @@ class ExperienceRepositoryTest (
 
         experiences.forEach {
             assertThat(it.details).hasSize(it.title.toInt())
+            logger.info{"details size : ${it.details.count()}"}
         }
     }
 
@@ -86,7 +87,9 @@ class ExperienceRepositoryTest (
 
         experiences.forEach {
             assertThat(it.details).hasSize(it.title.toInt())
+            logger.info{"details size : ${it.details.count()}"}
         }
     }
+
 
 }

@@ -1,5 +1,7 @@
 package com.yeonghun.portfolio.presentation.dto
 
+import com.yeonghun.portfolio.domain.entity.Introduction
+
 /**
  *packageName    : com.yeonghun.portfolio.presentation.dto
  * fileName       : AchievementDTO
@@ -10,4 +12,10 @@ package com.yeonghun.portfolio.presentation.dto
  * -----------------------------------------------------------
  * 2025-03-12        Yeong-Huns       최초 생성
  */
-data class IntroductionDTO()
+data class IntroductionDTO(
+    val content: String
+){
+    constructor(introduction: Introduction): this (
+        content = introduction.content!!
+    )
+}

@@ -10,4 +10,10 @@ package com.yeonghun.portfolio.presentation.dto
  * -----------------------------------------------------------
  * 2025-03-12        Yeong-Huns       최초 생성
  */
-data class ExperienceDTO()
+data class ExperienceDTO(
+    val title: String,
+    val description: String,
+    val startYearMonth: String,
+    val endYearMonth: String?,
+    val details: List<String>
+)

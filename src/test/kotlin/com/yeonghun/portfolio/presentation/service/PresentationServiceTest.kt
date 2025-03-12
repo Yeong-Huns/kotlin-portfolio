@@ -34,27 +34,21 @@ class PresentationServiceTest {
 
     @DisplayName("")
     @Test
-    fun testGetIntroductions() {
-        /* given */
+    fun testGetIntroductions() {/* given */
         val introductions = mutableListOf<Introduction>()
         (1..DATA_SIZE).forEach {
-            val introduction = Introduction(
-                content = "$it",
-                isActive = it % 2 == 0
-            )
-            introductions.add(introduction)
+            introductions.add(Introduction(content = "$it", isActive = it % 2 == 0))
         }
 
         val activeIntroductions = introductions.filter { it.isActive }
 
-        Mockito.`when`(presentaionRepository.getActiveIntroductions())
-            .thenReturn(activeIntroductions)
+        Mockito.`when`(presentaionRepository.getActiveIntroductions()).thenReturn(activeIntroductions)
 
         /* when */
         val introductionDTOs = presentationService.getIntroductions()
 
         /* then */
-        assertThat(introductionDTOs).hasSize(DATA_SIZE/2)
+        assertThat(introductionDTOs).hasSize(DATA_SIZE / 2)
         introductionDTOs.forEach {
             assertThat(it.content.toInt()).isEven()
         }
@@ -62,29 +56,22 @@ class PresentationServiceTest {
 
     @DisplayName("")
     @Test
-    fun testGetLinks() {
-        /* given */
+    fun testGetLinks() {/* given */
         val links = mutableListOf<Link>()
         (1..DATA_SIZE).forEach {
-            val link = Link(
-                name = "$it",
-                content = "$it",
-                isActive = it % 2 != 0
-            )
-            links.add(link)
+            links.add(Link(name = "$it", content = "$it", isActive = it % 2 != 0))
         }
 
         val activeLinks = links.filter { it.isActive }
 
-        Mockito.`when`(presentaionRepository.getActiveLinks())
-            .thenReturn(activeLinks)
+        Mockito.`when`(presentaionRepository.getActiveLinks()).thenReturn(activeLinks)
 
         /* when */
         val linkDTOs = presentationService.getLinks()
 
         /* then */
-        var expectedSize = DATA_SIZE/2
-        if( DATA_SIZE % 2 != 0) expectedSize += 1
+        var expectedSize = DATA_SIZE / 2
+        if (DATA_SIZE % 2 != 0) expectedSize += 1
         assertThat(linkDTOs).hasSize(expectedSize)
         linkDTOs.forEach {
             assertThat(it.content.toInt()).isOdd()

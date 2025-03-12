@@ -36,7 +36,7 @@ class ResumeDTO(
             description = it.description,
             host = it.host,
             achievedDate = it.achievedDate
-                ?.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                ?.format(DateTimeFormatter.ISO_LOCAL_DATE)
                 ?.replace("-", "."),
         )
     }

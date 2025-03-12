@@ -28,7 +28,7 @@ class PresentationServiceTest {
     lateinit var presentationService: PresentationService
 
     @Mock
-    lateinit var presentaionRepository: PresentationRepository
+    lateinit var presentationRepository: PresentationRepository
 
     val DATA_SIZE = 9
 
@@ -42,7 +42,7 @@ class PresentationServiceTest {
 
         val activeIntroductions = introductions.filter { it.isActive }
 
-        Mockito.`when`(presentaionRepository.getActiveIntroductions()).thenReturn(activeIntroductions)
+        Mockito.`when`(presentationRepository.getActiveIntroductions()).thenReturn(activeIntroductions)
 
         /* when */
         val introductionDTOs = presentationService.getIntroductions()
@@ -64,7 +64,7 @@ class PresentationServiceTest {
 
         val activeLinks = links.filter { it.isActive }
 
-        Mockito.`when`(presentaionRepository.getActiveLinks()).thenReturn(activeLinks)
+        Mockito.`when`(presentationRepository.getActiveLinks()).thenReturn(activeLinks)
 
         /* when */
         val linkDTOs = presentationService.getLinks()

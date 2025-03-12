@@ -32,7 +32,7 @@ class PresentationServiceTest {
 
     val DATA_SIZE = 9
 
-    @DisplayName("")
+    @DisplayName("활성화된 Introduction 만 조회하는데 성공한다. ")
     @Test
     fun testGetIntroductions() {/* given */
         val introductions = mutableListOf<Introduction>()
@@ -54,7 +54,7 @@ class PresentationServiceTest {
         }
     }
 
-    @DisplayName("")
+    @DisplayName("활성화된 Link 만 조회하는데 성공한다. ")
     @Test
     fun testGetLinks() {/* given */
         val links = mutableListOf<Link>()

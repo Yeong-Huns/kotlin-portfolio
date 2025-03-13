@@ -23,7 +23,7 @@ class PresentationViewController (
     @GetMapping("/test")
     fun test(): String = "test"
 
-    @GetMapping("/")
+    @GetMapping(value = ["/", "index"])
     fun index(model: Model): String {
         val intorductions = presentationService.getIntroductions()
         model.addAttribute("introductions", intorductions)

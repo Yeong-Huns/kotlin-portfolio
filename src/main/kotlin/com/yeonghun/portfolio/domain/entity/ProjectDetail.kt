@@ -18,7 +18,7 @@ class ProjectDetail(
     val id: Long? = null,
     var content: String,
     var isActive: Boolean,
-    var url: String? = null,
+    var url: String?,
 ): BaseEntity() {
     fun update(content: String, isActive: Boolean, url: String?) {
         this.content = content

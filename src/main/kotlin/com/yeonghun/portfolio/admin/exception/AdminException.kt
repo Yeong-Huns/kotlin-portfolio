@@ -1,5 +1,6 @@
 package com.yeonghun.portfolio.admin.exception
 
+import jdk.internal.joptsimple.internal.Messages.message
 import org.springframework.http.HttpStatus
 
 /**
@@ -15,5 +16,8 @@ import org.springframework.http.HttpStatus
 abstract class AdminException (
     val httpStatus: HttpStatus,
     message: String,
-): RuntimeException(message) {
-}
+): RuntimeException(message)
+
+class AdminBadRequestException(message: String) : AdminException(HttpStatus.BAD_REQUEST, message)
+
+class AdminInternalServerException(message: String) : AdminException(HttpStatus.INTERNAL_SERVER_ERROR, message)

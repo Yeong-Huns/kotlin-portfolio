@@ -1,9 +1,12 @@
 package com.yeonghun.portfolio.admin.context.skill.service
 
+import com.yeonghun.portfolio.admin.context.skill.form.SkillForm
 import com.yeonghun.portfolio.admin.data.TableDTO
 import com.yeonghun.portfolio.domain.entity.Skill
 import com.yeonghun.portfolio.domain.repository.SkillRepository
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 /**
  *packageName    : com.yeonghun.portfolio.admin.context.achievement.service
@@ -24,4 +27,9 @@ class AdminSkillService (
         val entities = skillRepository.findAll()
         return TableDTO.of(classInfo, entities)
     }
+    @Transactional
+    fun save(form: SkillForm) = form.toSkill().let (skillRepository::save)
+
+    @Transactional
+    fun update(id: Long, form: SkillForm) = form.toSkill(id).let (skillRepository::save)
 }

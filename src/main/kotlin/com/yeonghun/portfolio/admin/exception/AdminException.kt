@@ -1,6 +1,5 @@
 package com.yeonghun.portfolio.admin.exception
 
-import jdk.internal.joptsimple.internal.Messages.message
 import org.springframework.http.HttpStatus
 
 /**

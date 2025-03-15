@@ -18,4 +18,9 @@ class ExperienceDetail(
     val id: Long? = null,
     var content: String,
     var isActive: Boolean,
-): BaseEntity()
+): BaseEntity(){
+    fun update(content: String, isActive: Boolean){
+        this.content = content
+        this.isActive = isActive
+    }
+}

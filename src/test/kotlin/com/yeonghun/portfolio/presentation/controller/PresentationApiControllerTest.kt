@@ -86,5 +86,4 @@ class PresentationApiControllerTest (
             .andDo(MockMvcResultHandlers.print())
             .andReturn()
     }
-
 }

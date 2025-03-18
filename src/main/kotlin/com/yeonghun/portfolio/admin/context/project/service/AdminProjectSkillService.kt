@@ -1,11 +1,18 @@
 package com.yeonghun.portfolio.admin.context.project.service
 
+import com.yeonghun.portfolio.admin.context.project.form.ProjectSkillForm
 import com.yeonghun.portfolio.admin.data.TableDTO
+import com.yeonghun.portfolio.admin.exception.AdminBadRequestException
+import com.yeonghun.portfolio.admin.exception.AdminInternalServerException
+import com.yeonghun.portfolio.domain.entity.ProjectSkill
 import com.yeonghun.portfolio.domain.repository.ProjectRepository
+import com.yeonghun.portfolio.domain.repository.ProjectSkillRepository
 import com.yeonghun.portfolio.domain.repository.SkillRepository
-import com.yeonghun.portfolio.presentation.dto.ProjectDTO
-import jakarta.transaction.Transactional
+import com.yeonghun.portfolio.utils.findByIdOrThrow
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
+
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 /**
  *packageName    : com.yeonghun.portfolio.admin.context.project.service
@@ -20,7 +27,8 @@ import org.springframework.stereotype.Service
 @Service
 class AdminProjectSkillService (
     private val projectRepository: ProjectRepository,
-    private val skillRepository: SkillRepository
+    private val skillRepository: SkillRepository,
+    private val projectSkillRepository: ProjectSkillRepository
 ){
     @Transactional
     fun getProjectSkillTable(): TableDTO {
@@ -52,5 +60,32 @@ class AdminProjectSkillService (
 
     fun getSkillList(): List<String> =
         skillRepository.findAll().map { "${it.id} (${it.name})"}.toList()
+
+    @Transactional
+    fun save(form: ProjectSkillForm){
+        val projectId = parseId(form.project)
+        val skillId = parseId(form.skill)
+        projectSkillRepository.findByProjectIdAndSkillId(projectId, skillId)?.let{ throw AdminBadRequestException("이미 매핑된 데이터입니다.") }
+
+        val project = projectRepository.findByIdOrThrow(projectId)
+        val skill = skillRepository.findByIdOrThrow(skillId)
+
+        ProjectSkill(
+            project = project,
+            skill = skill
+        ).also{ project.skills.add(it) }
+    }
+
+    private fun parseId(line: String): Long{
+        try{
+            val endIndex = line.indexOf(" ")
+            return line.slice(0 until endIndex).toLong()
+        }catch (e: Exception){
+            throw AdminInternalServerException("ID 추출 중 오류가 발생했습니다.")
+        }
+    }
+
+    @Transactional
+    fun delete(id: Long) = projectSkillRepository.deleteById(id)
 
 }

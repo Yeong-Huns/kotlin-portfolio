@@ -77,5 +77,4 @@ class PresentationServiceTest {
             assertThat(it.content.toInt()).isOdd()
         }
     }
-
 }
